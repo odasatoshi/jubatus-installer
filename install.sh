@@ -38,15 +38,19 @@ JUBATUS_MPIO_SUM="e68d0777b28461a30a3612f9f5f1b4aa9408ac6c"
 JUBATUS_MSGPACK_RPC_VER="0.4.2"
 JUBATUS_MSGPACK_RPC_SUM="d24d43678c5d468ebad0dbb229df1c30a9de229e"
 
-
-while getopts dip:Dr OPT
+OPT=`getopt -o dip:Dr --long download_only, install_only, prefix:, develop, use_re2 -- "$@"`
+if [ $? != 0 ]; then
+    exit 1
+fi
+eval set -- "$OPT"
+for OPT in $*
 do
   case $OPT in
-    "d" ) DOWNLOAD_ONLY="TRUE" ;;
-    "i" ) INSTALL_ONLY="TRUE" ;;
-    "p" ) PREFIX="$OPTARG" ;;
-    "D" ) JUBATUS_VER="develop" ;;
-    "r" ) USE_RE2="TRUE" ;;
+    "-d" | "--download_only") DOWNLOAD_ONLY="TRUE" ;;
+    "-i" | "--install_only") INSTALL_ONLY="TRUE" ;;
+    "-p" | "--prefix") PREFIX="$OPTARG" ;;
+    "-D" | "--develop") JUBATUS_VER="develop" ;;
+    "-r" | "--use_re2") USE_RE2="TRUE" ;;
   esac
 done
 
